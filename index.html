@@ -8,10 +8,8 @@
 </head>
 <body>
 
-  
 <header class="header">
   <span class="logo">▶ Music</span>
-  <button class="toggle" onclick="toggleTheme()">🌓</button>
 </header>
 
 <div class="search-box">
@@ -23,25 +21,33 @@
   <button onclick="addSong()">Add</button>
 </div>
 
+<!-- MAIN LAYOUT -->
 <div class="main-layout">
 
+  <!-- NOW PLAYING -->
   <div class="now-playing" onclick="toggleExpand()">
-    <div class="media-box">Now Playing</div>
+    <div class="media-box">
+      <span>Now Playing</span>
+    </div>
   </div>
 
+  <!-- UP NEXT -->
   <div class="up-next">
     <h3>UP NEXT</h3>
-    <p class="sub">Playlist</p>
+    <p class="sub">Playing from <b>Playlist</b></p>
 
     <div class="playlist" id="playlist">
       <div id="skeleton">
         <div class="skeleton"></div>
         <div class="skeleton"></div>
+        <div class="skeleton"></div>
       </div>
     </div>
   </div>
+
 </div>
 
+<!-- PLAYER -->
 <footer class="player">
   <span id="currentSong">No song selected</span>
 
@@ -52,16 +58,12 @@
   </div>
 
   <div class="controls">
-    <button onclick="toggleShuffle()">🔀</button>
     <button onclick="prev()">⏮</button>
     <button id="playBtn" onclick="playPause()">▶️</button>
     <button onclick="next()">⏭</button>
-    <button onclick="toggleRepeat()">🔁</button>
+    <button onclick="deleteSong()">🗑</button>
   </div>
 </footer>
-
-<div id="toast"></div>
-<audio id="audioPlayer"></audio>
 
 <script src="script.js"></script>
 </body>
