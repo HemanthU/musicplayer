@@ -3,11 +3,14 @@ let filtered = [];
 let currentIndex = -1;
 let playing = false;
 
+/* Remove skeleton after load */
 setTimeout(() => {
-  document.getElementById("skeleton")?.remove();
+  const sk = document.getElementById("skeleton");
+  if (sk) sk.remove();
   render();
-}, 1200);
+}, 800);
 
+/* Render playlist */
 function render() {
   const list = document.getElementById("playlist");
   list.innerHTML = "";
@@ -33,16 +36,44 @@ function render() {
     currentIndex >= 0 ? filtered[currentIndex] : "No song selected";
 }
 
+/* Add song */
 function addSong() {
   const input = document.getElementById("songInput");
-  if (!input.value || songs.includes(input.value)) return;
-  songs.push(input.value);
-  filtered = songs;
+  const name = input.value.trim();
+
+  if (!name) return;
+  if (songs.includes(name)) {
+    alert("Song already exists");
+    return;
+  }
+
+  songs.push(name);
+  filtered = [...songs];
+
   if (currentIndex === -1) currentIndex = 0;
+
   input.value = "";
   render();
 }
 
+/* Delete current song */
+function deleteSong() {
+  if (currentIndex < 0 || songs.length === 0) return;
+
+  const songToDelete = filtered[currentIndex];
+  songs = songs.filter(s => s !== songToDelete);
+  filtered = [...songs];
+
+  if (filtered.length === 0) {
+    currentIndex = -1;
+  } else {
+    currentIndex = currentIndex % filtered.length;
+  }
+
+  render();
+}
+
+/* Select song */
 function selectSong(i) {
   currentIndex = i;
   playing = true;
@@ -50,30 +81,45 @@ function selectSong(i) {
   render();
 }
 
+/* Play / Pause */
 function playPause() {
+  if (currentIndex < 0) return;
+
   playing = !playing;
-  document.getElementById("playBtn").innerText = playing ? "⏸" : "▶️";
+  document.getElementById("playBtn").innerText =
+    playing ? "⏸" : "▶️";
 }
 
+/* Next song */
 function next() {
-  if (!songs.length) return;
+  if (filtered.length === 0) return;
   currentIndex = (currentIndex + 1) % filtered.length;
   render();
 }
 
+/* Previous song */
 function prev() {
-  if (!songs.length) return;
-  currentIndex = (currentIndex - 1 + filtered.length) % filtered.length;
+  if (filtered.length === 0) return;
+  currentIndex =
+    (currentIndex - 1 + filtered.length) % filtered.length;
   render();
 }
 
+/* Search song */
 function searchSong() {
   const q = document.getElementById("searchInput").value.toLowerCase();
-  filtered = songs.filter(s => s.toLowerCase().includes(q));
+
+  filtered = songs.filter(song =>
+    song.toLowerCase().includes(q)
+  );
+
   currentIndex = filtered.length ? 0 : -1;
   render();
 }
 
+/* Expand now playing */
 function toggleExpand() {
-  document.querySelector(".now-playing").classList.toggle("expanded");
+  document
+    .querySelector(".now-playing")
+    .classList.toggle("expanded");
 }
