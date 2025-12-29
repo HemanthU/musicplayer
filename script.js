@@ -1,30 +1,52 @@
-let songs = ["Perfect", "Believer", "Faded"];
-let index = 0;
+let songs = [];
+let currentIndex = -1;
 
-function playSong(name) {
-  document.getElementById("currentSong").innerText = name;
-  index = songs.indexOf(name);
-  updateActive();
+function render() {
+  const list = document.getElementById("playlist");
+  list.innerHTML = "";
+
+  songs.forEach((song, i) => {
+    const div = document.createElement("div");
+    div.className = "song" + (i === currentIndex ? " active" : "");
+    div.innerText = song;
+    div.onclick = () => selectSong(i);
+    list.appendChild(div);
+  });
+
+  document.getElementById("currentSong").innerText =
+    currentIndex >= 0 ? songs[currentIndex] : "No song";
 }
 
-function play() {
-  alert("Playing: " + songs[index]);
+function addSong() {
+  const name = document.getElementById("songInput").value.trim();
+  if (!name || songs.includes(name)) return;
+  songs.push(name);
+  if (currentIndex === -1) currentIndex = 0;
+  document.getElementById("songInput").value = "";
+  render();
+}
+
+function selectSong(i) {
+  currentIndex = i;
+  render();
 }
 
 function next() {
-  index = (index + 1) % songs.length;
-  document.getElementById("currentSong").innerText = songs[index];
-  updateActive();
+  if (songs.length === 0) return;
+  currentIndex = (currentIndex + 1) % songs.length;
+  render();
 }
 
 function prev() {
-  index = (index - 1 + songs.length) % songs.length;
-  document.getElementById("currentSong").innerText = songs[index];
-  updateActive();
+  if (songs.length === 0) return;
+  currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+  render();
 }
 
-function updateActive() {
-  document.querySelectorAll(".song").forEach((el, i) => {
-    el.classList.toggle("active", i === index);
-  });
+function deleteSong() {
+  if (currentIndex < 0) return;
+  songs.splice(currentIndex, 1);
+  if (songs.length === 0) currentIndex = -1;
+  else currentIndex %= songs.length;
+  render();
 }
