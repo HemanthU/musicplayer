@@ -3,10 +3,8 @@ let filtered = [];
 let currentIndex = -1;
 let playing = false;
 
-/* Remove skeleton */
 setTimeout(() => {
-  const sk = document.getElementById("skeleton");
-  if (sk) sk.remove();
+  document.getElementById("skeleton")?.remove();
   render();
 }, 1200);
 
@@ -20,11 +18,13 @@ function render() {
     div.onclick = () => selectSong(i);
 
     div.innerHTML = `
-      ${song}
-      ${i === currentIndex && playing ? `
-        <div class="eq">
-          <span></span><span></span><span></span>
-        </div>` : ""}
+      <span class="play-overlay">▶</span>
+      <div>
+        <div class="song-title">${song}</div>
+        <div class="song-artist">Unknown Artist</div>
+      </div>
+      <div class="song-time">4:20</div>
+      <div class="like">♡</div>
     `;
     list.appendChild(div);
   });
@@ -35,21 +35,11 @@ function render() {
 
 function addSong() {
   const input = document.getElementById("songInput");
-  const name = input.value.trim();
-  if (!name || songs.includes(name)) return;
-
-  songs.push(name);
+  if (!input.value || songs.includes(input.value)) return;
+  songs.push(input.value);
   filtered = songs;
   if (currentIndex === -1) currentIndex = 0;
   input.value = "";
-  render();
-}
-
-function deleteSong() {
-  if (currentIndex < 0) return;
-  songs.splice(currentIndex, 1);
-  filtered = songs;
-  currentIndex = songs.length ? 0 : -1;
   render();
 }
 
@@ -63,7 +53,6 @@ function selectSong(i) {
 function playPause() {
   playing = !playing;
   document.getElementById("playBtn").innerText = playing ? "⏸" : "▶️";
-  render();
 }
 
 function next() {
@@ -83,4 +72,8 @@ function searchSong() {
   filtered = songs.filter(s => s.toLowerCase().includes(q));
   currentIndex = filtered.length ? 0 : -1;
   render();
+}
+
+function toggleExpand() {
+  document.querySelector(".now-playing").classList.toggle("expanded");
 }
