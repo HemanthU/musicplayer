@@ -1,43 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Music Playlist Manager</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Top Bar -->
-<header class="top-bar">
-  <h1>Music</h1>
-</header>
+<header class="header">🎵 Music</header>
 
-<!-- Main Content -->
-<main class="content">
-  <h2>Playlist</h2>
+<div class="add-box">
+  <input id="songInput" placeholder="Add a song">
+  <button onclick="addSong()">Add</button>
+</div>
 
-  <div class="song active" onclick="playSong('Perfect')">
-    🎵 Perfect
-  </div>
-  <div class="song" onclick="playSong('Believer')">
-    🎵 Believer
-  </div>
-  <div class="song" onclick="playSong('Faded')">
-    🎵 Faded
-  </div>
-</main>
+<div class="playlist" id="playlist"></div>
 
-<!-- Player Bar -->
 <footer class="player">
-  <div class="song-info">
-    <span id="currentSong">Perfect</span>
-  </div>
-
+  <span id="currentSong">No song</span>
   <div class="controls">
     <button onclick="prev()">⏮</button>
-    <button onclick="play()">▶️</button>
     <button onclick="next()">⏭</button>
+    <button onclick="deleteSong()">🗑</button>
   </div>
 </footer>
 
