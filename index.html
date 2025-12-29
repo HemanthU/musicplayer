@@ -8,24 +8,44 @@
 </head>
 <body>
 
-<header class="header">🎵 Music</header>
-  
-  <div class="search-box">
-  <input id="searchInput" placeholder="Search songs…" oninput="searchSong()" />
+<header class="header">
+  <span class="logo">▶ Music</span>
+</header>
+
+<!-- Search -->
+<div class="search-box">
+  <input id="searchInput" placeholder="Search songs…" oninput="searchSong()">
 </div>
 
-
+<!-- Add song -->
 <div class="add-box">
   <input id="songInput" placeholder="Add a song">
   <button onclick="addSong()">Add</button>
 </div>
 
-<div class="playlist" id="playlist"></div>
+<!-- Playlist -->
+<div class="playlist" id="playlist">
+  <!-- Skeleton loading -->
+  <div id="skeleton">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </div>
+</div>
 
+<!-- Player -->
 <footer class="player">
-  <span id="currentSong">No song</span>
+  <span id="currentSong">No song selected</span>
+
+  <div class="progress-wrap">
+    <span id="currentTime">0:00</span>
+    <input type="range" id="progress" value="0">
+    <span id="duration">3:30</span>
+  </div>
+
   <div class="controls">
     <button onclick="prev()">⏮</button>
+    <button id="playBtn" onclick="playPause()">▶️</button>
     <button onclick="next()">⏭</button>
     <button onclick="deleteSong()">🗑</button>
   </div>
