@@ -12,45 +12,46 @@
   <span class="logo">▶ Music</span>
 </header>
 
-<!-- Search -->
 <div class="search-box">
   <input id="searchInput" placeholder="Search songs…" oninput="searchSong()">
 </div>
 
-<!-- Add song -->
 <div class="add-box">
   <input id="songInput" placeholder="Add a song">
   <button onclick="addSong()">Add</button>
 </div>
 
-<!-- Playlist -->
-<div class="playlist" id="playlist">
-  <!-- Skeleton loading -->
-  <div id="skeleton">
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- NOW PLAYING -->
+  <div class="now-playing" onclick="toggleExpand()">
+    <div class="media-box">
+      <span>Now Playing</span>
+    </div>
   </div>
+
+  <!-- UP NEXT -->
+  <div class="up-next">
+    <h3>UP NEXT</h3>
+    <p class="sub">Playing from <b>Playlist</b></p>
+
+    <div class="playlist" id="playlist">
+      <div id="skeleton">
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- Player -->
+<!-- PLAYER -->
 <footer class="player">
   <span id="currentSong">No song selected</span>
 
   <div class="progress-wrap">
-    <span id="currentTime">0:00</span>
-    <input type="range" id="progress" value="0">
-    <span id="duration">3:30</span>
-  </div>
-
-  <div class="controls">
-    <button onclick="prev()">⏮</button>
-    <button id="playBtn" onclick="playPause()">▶️</button>
-    <button onclick="next()">⏭</button>
-    <button onclick="deleteSong()">🗑</button>
-  </div>
-</footer>
-
-<script src="script.js"></script>
-</body>
-</html>
+    <span>0:00</span>
+    <input type="range">
+    <span>4:20</spa
